@@ -1,0 +1,17 @@
+<div class="upload-container"
+     (dragover)="onDragOver($event)"
+     (dragleave)="onDragLeave($event)"
+     (drop)="onDrop($event)">
+  <h2>Image Upload</h2>
+  <div class="input-wrapper">
+    <input type="file" id="file-input" (change)="onFileSelected($event)" class="file-input" />
+    <label for="file-input" [class.drag-hover]="isDraggingOver" class="custom-file-input">
+      <span class="file-name">{{ selectedFileName ? selectedFileName : 'Choose File' }}</span>
+    </label>
+    <button (click)="uploadImage()" [disabled]="!selectedFile" class="upload-button">Upload Image</button>
+  </div>
+  <div [style.display]="downloadURL ? 'block' : 'none'" class="success-message">
+    <p>Image uploaded successfully!</p>
+    <a [href]="downloadURL" target="_blank" class="download-link">{{ downloadURL }}</a>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<div class="view-container">
+
+  <div [style.display]="isLoading ? 'block' : 'none'">Loading...</div>
+
+  <div [style.display]="imageUrl ? 'block' : 'none'" >
+    <h2>{{ imageName }}</h2>
+    <div class="image-wrapper">
+      <a [href]="imageUrl" target="_blank">
+        <img [src]="imageUrl" alt="Uploaded Image" />
+      </a>
+    </div>
+  </div>
+
+  <div [style.display]="errorMessage ? 'block' : 'none'" class="error-message">
+    <p>{{ errorMessage }}</p>
+  </div>
+
+  <button class="back-button" (click)="goBack()">Upload Another</button>
+</div>
