@@ -1,27 +1,28 @@
 # ImageHosting
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.5.
+An elegant image hosting website with just the features you need: Upload and view the images!
 
-## Development server
+*Built with Angular and uses Firebase to store the images.*
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+![Demo](./assets/demo.gif)
 
-## Code scaffolding
+## Deployment
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Configure Firebase storage with proper rules like
+```
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /images/{name} {
+      allow create: if resource == null
+                         && request.resource.size < 2 * 1024 * 1024
+                         && name.matches('.*\\.(png|jpg|jpeg)$');
+      allow read: if true;
+      allow update, delete: if false;
+    }
+  }
+}
+```
 
-## Build
+Put the credentials in src/environments/environment.ts
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+And finally run `ng build` and host the built files.
